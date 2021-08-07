@@ -5,13 +5,24 @@ import { CheckBox } from "react-native-elements";
 import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
 import { GoogleBtn } from "../../Components/Buttons/GoogleBtn";
 import { KeyboardAvoidingView } from "react-native";
-
+import { auth } from "../../firebase.js";
 export const Auth = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [policyChecked, setPolicyChecked] = React.useState(false);
 
+  const signUpHandler = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        var newUser = user;
+      })
+      .catch((error) => {
+        var error = error.code;
+        var errorMessage = error.message;
+      });
+  };
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.inputContainer}>
@@ -49,7 +60,7 @@ export const Auth = () => {
         />
       </View>
       <View style={styles.btnContainer}>
-        <PrimaryBtn title="Sign Up" />
+        <PrimaryBtn title="Sign Up" onPress={signUpHandler} />
         <Text style={styles.moreText}>Or with</Text>
         <GoogleBtn title="Sign Up with Google" />
         <Text style={styles.loginText}>

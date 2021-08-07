@@ -1,5 +1,6 @@
 import firebase from "firebase";
-
+import "firebase/firestore";
+import "firebase/auth";
 var firebaseConfig = {
   apiKey: "AIzaSyCdWInTY7kFRrAEeaBAeQ2_SzWiiAtZ7Y4",
   authDomain: "expensestracker-51c02.firebaseapp.com",
