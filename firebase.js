@@ -1,3 +1,5 @@
+import firebase from "firebase";
+
 var firebaseConfig = {
   apiKey: "AIzaSyCdWInTY7kFRrAEeaBAeQ2_SzWiiAtZ7Y4",
   authDomain: "expensestracker-51c02.firebaseapp.com",
@@ -7,5 +9,13 @@ var firebaseConfig = {
   appId: "1:442715327646:web:948a956d2db7fe1f6cff8f",
   measurementId: "G-QMZ20KGXLV",
 };
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+
+let app;
+if (firebase.apps.length === 0) {
+  app = firebase.initializeApp(firebaseConfig);
+} else {
+  app = firebase.app();
+}
+const db = app.firestore();
+const auth = firebase.auth();
+export { db, auth };
