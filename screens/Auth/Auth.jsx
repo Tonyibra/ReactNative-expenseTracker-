@@ -6,18 +6,28 @@ import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
 import { GoogleBtn } from "../../Components/Buttons/GoogleBtn";
 import { KeyboardAvoidingView } from "react-native";
 import { auth } from "../../firebase.js";
-export const Auth = () => {
+export const Auth = ({ navigation }) => {
+  const nav = navigation;
+
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [policyChecked, setPolicyChecked] = React.useState(false);
 
-  const signUpHandler = () => {
+  const loginHandler = () => {
+    nav.navigate("authLogin");
+  };
+  const registerHandler = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        var newUser = user;
+      .then((authUser) => {
+        authUser.user.updateProfile({
+          displayName: name,
+        });
+        authUser.user.sendEmailVerification();
+        console.log(authUser.user.emailVerified);
       })
+
       .catch((error) => {
         var error = error.code;
         var errorMessage = error.message;
@@ -60,11 +70,14 @@ export const Auth = () => {
         />
       </View>
       <View style={styles.btnContainer}>
-        <PrimaryBtn title="Sign Up" onPress={signUpHandler} />
+        <PrimaryBtn title="Sign Up" onPress={registerHandler} />
         <Text style={styles.moreText}>Or with</Text>
         <GoogleBtn title="Sign Up with Google" />
         <Text style={styles.loginText}>
-          Already have an account? <Text style={styles.loginLink}>Login</Text>
+          Already have an account?{" "}
+          <Text style={styles.loginLink} onPress={() => loginHandler()}>
+            Login
+          </Text>
         </Text>
       </View>
     </KeyboardAvoidingView>

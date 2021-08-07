@@ -5,9 +5,10 @@ import { Onboarding } from "./screens/Auth/Onboarding";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Auth } from "./screens/Auth/Auth";
+import { auth } from "./firebase.js";
+import { AuthLogin } from "./screens/Auth/AuthLogin";
 
 const Stack = createStackNavigator();
-
 export default function App() {
   return (
     <NavigationContainer>
@@ -28,6 +29,14 @@ export default function App() {
           component={Auth}
           options={{
             headerTitle: "Sign Up",
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="authLogin"
+          component={AuthLogin}
+          options={{
+            headerTitle: "Login",
             headerBackTitleVisible: false,
           }}
         />

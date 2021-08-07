@@ -19,6 +19,9 @@ export const Onboarding = ({ navigation }) => {
   const signUpHandler = () => {
     nav.navigate("auth");
   };
+  const loginHandler = () => {
+    nav.navigate("authLogin");
+  };
   return (
     <SafeAreaView style={styles.slider}>
       <Pages
@@ -37,7 +40,7 @@ export const Onboarding = ({ navigation }) => {
       <View style={styles.pagination}></View>
       <View style={styles.btnsContainer}>
         <PrimaryBtn title="Sign Up" onPress={() => signUpHandler()} />
-        <SecondaryBtn title="Login" />
+        <SecondaryBtn title="Login" onPress={() => loginHandler()} />
       </View>
     </SafeAreaView>
   );
