@@ -19,13 +19,14 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-animated-pagination-dots": "^0.1.72",
     "react-native-elements": "^3.4.2",
-    "react-native-gesture-handler": "^1.10.3",
+    "react-native-gesture-handler": "~1.10.2",
     "react-native-pages": "^0.9.0",
     "react-native-paper": "^4.9.2",
-    "react-native-reanimated": "^2.2.0",
+    "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "reanimated-bottom-sheet": "^1.0.0-alpha.22"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

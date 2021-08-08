@@ -2,8 +2,25 @@ import React, { useState } from "react";
 import { KeyboardAvoidingView } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
-
+import BottomSheet from "reanimated-bottom-sheet";
+import Animated from "react-native-reanimated";
 export const Addaccount = () => {
+  const renderContent = () => (
+    <View
+      style={{
+        backgroundColor: "white",
+        padding: 16,
+        height: 450,
+      }}
+    >
+      <View style={styles.panelHeader}>
+        <Text style={styles.headerText}>Account Type </Text>
+      </View>
+    </View>
+  );
+
+  const sheetRef = React.useRef(null);
+  let fall = new Animated.Value(1);
   const [walletName, setWalletName] = useState("");
   return (
     <View style={styles.container}>
@@ -22,8 +39,19 @@ export const Addaccount = () => {
             value={walletName}
             onChangeText={(text) => setWalletName(text)}
           />
+          <Text onPress={() => sheetRef.current.snapTo(0)}>CHOOSE</Text>
         </View>
       </KeyboardAvoidingView>
+
+      <BottomSheet
+        ref={sheetRef}
+        snapPoints={[450, 300, 0]}
+        borderRadius={10}
+        renderContent={renderContent}
+        callbackNode={fall}
+        initialSnap={1}
+        enabledGestureInteraction={true}
+      />
     </View>
   );
 };
@@ -67,5 +95,14 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#fff",
+  },
+  panelHeader: {
+    flex: 1,
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 36,
+    lineHeight: 40,
+    color: "#7F3DFF",
   },
 });
