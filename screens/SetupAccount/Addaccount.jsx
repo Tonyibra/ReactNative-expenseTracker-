@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { KeyboardAvoidingView } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
+import { TextInput } from "react-native-paper";
 
 export const Addaccount = () => {
+  const [walletName, setWalletName] = useState("");
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.balance}>Balance</Text>
         <Text style={styles.currency}>$00.0</Text>
       </View>
-      <View style={styles.bottomContainer}></View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.bottomContainer}
+      >
+        <View style={styles.inputStyles}>
+          <TextInput
+            style={styles.input}
+            placeholder="Wallet Name"
+            value={walletName}
+            onChangeText={(text) => setWalletName(text)}
+          />
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -45,5 +60,12 @@ const styles = StyleSheet.create({
     width: "100%",
     top: -20,
     marginTop: -10,
+  },
+  inputStyles: {
+    marginVertical: 24,
+    marginHorizontal: 16,
+  },
+  input: {
+    backgroundColor: "#fff",
   },
 });
