@@ -10,9 +10,7 @@ import { AuthLogin } from "./screens/Auth/AuthLogin";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Setup } from "./screens/Setup";
 const Stack = createStackNavigator();
-export default function App({ navigation }) {
-  const nav = navigation;
-
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator

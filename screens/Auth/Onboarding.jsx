@@ -19,17 +19,17 @@ const { width, height } = Dimensions.get("window");
 export const Onboarding = ({ navigation }) => {
   const [user, loading, error] = useAuthState(auth);
 
-  const nav = navigation;
-
-  if (user) {
-    nav.replace("setupAccount");
-  }
+  React.useEffect(() => {
+    if (user) {
+      navigation.replace("setupAccount");
+    }
+  }, [user, loading]);
 
   const signUpHandler = () => {
-    nav.navigate("auth");
+    navigation.navigate("auth");
   };
   const loginHandler = () => {
-    nav.navigate("authLogin");
+    navigation.navigate("authLogin");
   };
   return (
     <SafeAreaView style={styles.slider}>

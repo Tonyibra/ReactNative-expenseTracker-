@@ -5,7 +5,7 @@ import { CheckBox } from "react-native-elements";
 import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
 import { GoogleBtn } from "../../Components/Buttons/GoogleBtn";
 import { KeyboardAvoidingView } from "react-native";
-import { auth } from "../../firebase.js";
+import { auth, db } from "../../firebase.js";
 export const Auth = ({ navigation }) => {
   const nav = navigation;
 
@@ -23,6 +23,12 @@ export const Auth = ({ navigation }) => {
       .then((authUser) => {
         authUser.user.updateProfile({
           displayName: name,
+        });
+        db.collection("expensesDb").doc("users").set({
+          username: name,
+          email: email,
+          verified: false,
+          setupMode: true,
         });
         loginHandler();
         authUser.user.sendEmailVerification();

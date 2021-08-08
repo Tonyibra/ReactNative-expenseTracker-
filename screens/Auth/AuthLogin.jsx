@@ -40,7 +40,7 @@ export const AuthLogin = ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
         />
         <View style={styles.btnContainer}>
-          <PrimaryBtn title="Login" />
+          <PrimaryBtn onPress={() => loginHandler()} title="Login" />
         </View>
         <View style={styles.textWrapper}>
           <Text style={styles.forgetPassword}>Forgot Password?</Text>
