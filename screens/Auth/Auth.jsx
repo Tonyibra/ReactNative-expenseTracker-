@@ -24,6 +24,7 @@ export const Auth = ({ navigation }) => {
         authUser.user.updateProfile({
           displayName: name,
         });
+        loginHandler();
         authUser.user.sendEmailVerification();
         console.log(authUser.user.emailVerified);
       })

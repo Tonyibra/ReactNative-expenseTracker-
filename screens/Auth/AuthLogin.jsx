@@ -3,26 +3,37 @@ import { KeyboardAvoidingView } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
-
+import { auth } from "../../firebase.js";
 export const AuthLogin = ({ navigation }) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const nav = navigation;
   const registerHandler = () => {
     nav.navigate("auth");
   };
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const loginHandler = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        var user = userCredential.user;
+      })
+      .catch((error) => {
+        var error = error.code;
+        var errorMessage = error.message;
+      });
+  };
 
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView style={styles.inputContainer}>
         <TextInput
-          placeholder="Name"
+          placeholder="Email"
           style={styles.input}
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
-          placeholder="password"
+          placeholder="Password"
           style={styles.input}
           value={password}
           secureTextEntry

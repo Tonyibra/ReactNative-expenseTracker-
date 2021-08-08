@@ -12,10 +12,19 @@ import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
 import { SecondaryBtn } from "../../Components/Buttons/SecondaryBtn";
 import { slideData } from "../../Slide.js";
 import { Pages } from "react-native-pages";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase.js";
 const { width, height } = Dimensions.get("window");
 
 export const Onboarding = ({ navigation }) => {
+  const [user, loading, error] = useAuthState(auth);
+
   const nav = navigation;
+
+  if (user) {
+    nav.replace("setupAccount");
+  }
+
   const signUpHandler = () => {
     nav.navigate("auth");
   };

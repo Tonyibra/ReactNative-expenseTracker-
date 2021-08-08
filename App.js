@@ -7,9 +7,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Auth } from "./screens/Auth/Auth";
 import { auth } from "./firebase.js";
 import { AuthLogin } from "./screens/Auth/AuthLogin";
-
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Setup } from "./screens/Setup";
 const Stack = createStackNavigator();
-export default function App() {
+export default function App({ navigation }) {
+  const nav = navigation;
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -38,6 +41,13 @@ export default function App() {
           options={{
             headerTitle: "Login",
             headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="setupAccount"
+          component={Setup}
+          options={{
+            headerMode: "none",
           }}
         />
       </Stack.Navigator>
