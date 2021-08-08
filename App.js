@@ -55,6 +55,11 @@ export default function App() {
           options={{
             headerTitle: "Add new account",
             headerBackTitleVisible: false,
+            headerTintColor: "white",
+            headerStyle: {
+              backgroundColor: "#7F3DFF",
+              shadowColor: "#7F3DFF",
+            },
           }}
         />
       </Stack.Navigator>
