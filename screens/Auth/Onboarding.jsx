@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,17 +13,35 @@ import { SecondaryBtn } from "../../Components/Buttons/SecondaryBtn";
 import { slideData } from "../../Slide.js";
 import { Pages } from "react-native-pages";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase.js";
+import { auth, db } from "../../firebase.js";
+import { useDocumentOnce } from "react-firebase-hooks/firestore";
+
 const { width, height } = Dimensions.get("window");
 
 export const Onboarding = ({ navigation }) => {
+  const mountedRef = useRef(true);
   const [user, loading, error] = useAuthState(auth);
-
+  const [snapshot] = useDocumentOnce(
+    db
+      .collection("expensesDb")
+      .doc(user?.email)
+      .collection("profile")
+      .doc(user?.uid)
+  );
   React.useEffect(() => {
-    if (user) {
-      navigation.replace("setupAccount");
+    if (snapshot?.data()) {
+      if (snapshot.data().setupMode === true) {
+        navigation.replace("setupAccount");
+      } else if (snapshot.data().setupMode === false) {
+        navigation.replace("home");
+      }
     }
-  }, [user, loading]);
+  }, [snapshot]);
+  // React.useEffect(() => {
+  //   if (user) {
+  //     navigation.replace("setupAccount");
+  //   }
+  // }, [user]);
 
   const signUpHandler = () => {
     navigation.navigate("auth");

@@ -8,6 +8,7 @@ import { SecondaryBtn } from "../../Components/Buttons/SecondaryBtn";
 import { db, auth } from "../../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "firebase";
+
 export const Addaccount = ({ navigation }) => {
   const [isbank, setIsBank] = useState(false);
   const [isPaypal, setIsPaypal] = useState(false);
@@ -15,13 +16,15 @@ export const Addaccount = ({ navigation }) => {
   const [walletType, setIsWalletType] = useState("");
   const [walletName, setWalletName] = useState("");
   const [cash, setCash] = useState("00.0");
-  const [user, loading, error] = useAuthState(auth);
 
-  const finishUpHandler = () => {
-    db.collection("expensesDb")
-      .doc(user.uid)
+  const [user, loading, error] = useAuthState(auth);
+  const finishUpHandler = async () => {
+    const Newuser = await db
+      .collection("expensesDb")
+      .doc(user.email)
       .collection("profile")
-      .add({
+      .doc(user.uid)
+      .set({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         username: user.displayName,
         email: user.email,

@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
 import Success from "../../assets/success.png";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../../firebase.js";
-export const FinishSetup = () => {
-  const [user, loading, error] = useAuthState(auth);
-
-  // useEffect(() => {}, []);
+export const FinishSetup = ({ navigation }) => {
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate("home");
+    }, 2000);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

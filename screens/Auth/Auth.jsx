@@ -23,6 +23,7 @@ export const Auth = ({ navigation }) => {
         authUser.user.updateProfile({
           displayName: name,
         });
+
         authUser.user.sendEmailVerification();
       })
 

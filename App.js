@@ -11,6 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Setup } from "./screens/SetupAccount/Setup";
 import { Addaccount } from "./screens/SetupAccount/Addaccount";
 import { FinishSetup } from "./screens/SetupAccount/FinishSetup";
+import { HomeScreen } from "./screens/Home/HomeScreen";
 const Stack = createStackNavigator();
 export default function App() {
   return (
@@ -48,6 +49,7 @@ export default function App() {
           component={Setup}
           options={{
             headerMode: "none",
+            gestureEnabled: false,
           }}
         />
         <Stack.Screen
@@ -70,6 +72,17 @@ export default function App() {
             headerBackTitleVisible: false,
             headerTintColor: "white",
             headerMode: "none",
+            gestureEnabled: false,
+          }}
+        />
+        <Stack.Screen
+          name="home"
+          component={HomeScreen}
+          options={{
+            headerBackTitleVisible: false,
+            headerTintColor: "white",
+            headerMode: "none",
+            gestureEnabled: false,
           }}
         />
       </Stack.Navigator>
