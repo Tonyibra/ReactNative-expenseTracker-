@@ -8,7 +8,8 @@ import { Auth } from "./screens/Auth/Auth";
 import { auth } from "./firebase.js";
 import { AuthLogin } from "./screens/Auth/AuthLogin";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Setup } from "./screens/Setup";
+import { Setup } from "./screens/SetupAccount/Setup";
+import { Addaccount } from "./screens/SetupAccount/Addaccount";
 const Stack = createStackNavigator();
 export default function App() {
   return (
@@ -46,6 +47,14 @@ export default function App() {
           component={Setup}
           options={{
             headerMode: "none",
+          }}
+        />
+        <Stack.Screen
+          name="newAccount"
+          component={Addaccount}
+          options={{
+            headerTitle: "Add new account",
+            headerBackTitleVisible: false,
           }}
         />
       </Stack.Navigator>

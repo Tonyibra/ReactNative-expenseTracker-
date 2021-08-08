@@ -1,9 +1,12 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
-import { PrimaryBtn } from "../Components/Buttons/PrimaryBtn";
+import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
 
-export const Setup = () => {
+export const Setup = ({ navigation }) => {
+  const addNewAccount = () => {
+    navigation.navigate("newAccount");
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.Contentcontainer}>
@@ -13,7 +16,7 @@ export const Setup = () => {
         </Text>
       </View>
       <View style={styles.btnWrapper}>
-        <PrimaryBtn title="Let’s go" />
+        <PrimaryBtn title="Let’s go" onPress={() => addNewAccount()} />
       </View>
     </SafeAreaView>
   );
