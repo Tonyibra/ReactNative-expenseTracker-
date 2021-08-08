@@ -10,6 +10,7 @@ import { AuthLogin } from "./screens/Auth/AuthLogin";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Setup } from "./screens/SetupAccount/Setup";
 import { Addaccount } from "./screens/SetupAccount/Addaccount";
+import { FinishSetup } from "./screens/SetupAccount/FinishSetup";
 const Stack = createStackNavigator();
 export default function App() {
   return (
@@ -60,6 +61,15 @@ export default function App() {
               backgroundColor: "#7F3DFF",
               shadowColor: "#7F3DFF",
             },
+          }}
+        />
+        <Stack.Screen
+          name="set"
+          component={FinishSetup}
+          options={{
+            headerBackTitleVisible: false,
+            headerTintColor: "white",
+            headerMode: "none",
           }}
         />
       </Stack.Navigator>

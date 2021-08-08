@@ -13,7 +13,6 @@ export const Auth = ({ navigation }) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [policyChecked, setPolicyChecked] = React.useState(false);
-
   const loginHandler = () => {
     nav.navigate("authLogin");
   };
@@ -24,22 +23,17 @@ export const Auth = ({ navigation }) => {
         authUser.user.updateProfile({
           displayName: name,
         });
-        db.collection("expensesDb").doc("users").set({
-          username: name,
-          email: email,
-          verified: false,
-          setupMode: true,
-        });
-        loginHandler();
         authUser.user.sendEmailVerification();
-        console.log(authUser.user.emailVerified);
       })
 
       .catch((error) => {
         var error = error.code;
         var errorMessage = error.message;
       });
+
+    loginHandler();
   };
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.inputContainer}>

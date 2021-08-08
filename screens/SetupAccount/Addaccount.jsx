@@ -5,13 +5,38 @@ import { TextInput } from "react-native-paper";
 import { AccountType } from "../../Components/AccountType/AccountType";
 import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
 import { SecondaryBtn } from "../../Components/Buttons/SecondaryBtn";
-export const Addaccount = () => {
+import { db, auth } from "../../firebase.js";
+import { useAuthState } from "react-firebase-hooks/auth";
+import firebase from "firebase";
+export const Addaccount = ({ navigation }) => {
   const [isbank, setIsBank] = useState(false);
   const [isPaypal, setIsPaypal] = useState(false);
   const [isWallet, setIsWallet] = useState(false);
   const [walletType, setIsWalletType] = useState("");
   const [walletName, setWalletName] = useState("");
+  const [cash, setCash] = useState("00.0");
+  const [user, loading, error] = useAuthState(auth);
 
+  const finishUpHandler = () => {
+    db.collection("expensesDb")
+      .doc(user.uid)
+      .collection("profile")
+      .add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        username: user.displayName,
+        email: user.email,
+        verified: user.emailVerified,
+        setupMode: false,
+        walletName,
+        walletType,
+        isbank,
+        isPaypal,
+        isWallet,
+        cash: `$ ${cash}`,
+        currency: "dollar",
+      });
+    navigation.replace("set");
+  };
   const bankHandler = () => {
     setIsWallet(false);
     setIsPaypal(false);
@@ -34,7 +59,7 @@ export const Addaccount = () => {
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.balance}>Balance</Text>
-        <Text style={styles.currency}>$00.0</Text>
+        <Text style={styles.currency}>${cash}</Text>
       </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -78,6 +103,7 @@ export const Addaccount = () => {
           <View style={styles.continue}>
             <PrimaryBtn
               title={"Continue"}
+              onPress={() => finishUpHandler()}
               disabled={walletName === "" ? true : false}
             />
           </View>
