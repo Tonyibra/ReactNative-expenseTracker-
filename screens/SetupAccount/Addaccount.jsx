@@ -2,25 +2,12 @@ import React, { useState } from "react";
 import { KeyboardAvoidingView } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
-import BottomSheet from "reanimated-bottom-sheet";
-import Animated from "react-native-reanimated";
+import { AccountType } from "../../Components/AccountType/AccountType";
+import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
+import { SecondaryBtn } from "../../Components/Buttons/SecondaryBtn";
 export const Addaccount = () => {
-  const renderContent = () => (
-    <View
-      style={{
-        backgroundColor: "white",
-        padding: 16,
-        height: 450,
-      }}
-    >
-      <View style={styles.panelHeader}>
-        <Text style={styles.headerText}>Account Type </Text>
-      </View>
-    </View>
-  );
+  const [isSelected, setIsSelected] = useState(false);
 
-  const sheetRef = React.useRef(null);
-  let fall = new Animated.Value(1);
   const [walletName, setWalletName] = useState("");
   return (
     <View style={styles.container}>
@@ -39,19 +26,20 @@ export const Addaccount = () => {
             value={walletName}
             onChangeText={(text) => setWalletName(text)}
           />
-          <Text onPress={() => sheetRef.current.snapTo(0)}>CHOOSE</Text>
+          <View style={styles.btnWrapper}>
+            <SecondaryBtn title="Account Type" />
+            <View style={styles.accountsList}>
+              <AccountType
+                isSelected={isSelected}
+                onPress={() => setIsSelected(!isSelected)}
+              />
+            </View>
+          </View>
+          <View style={styles.continue}>
+            <PrimaryBtn title="Continue" />
+          </View>
         </View>
       </KeyboardAvoidingView>
-
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={[450, 300, 0]}
-        borderRadius={10}
-        renderContent={renderContent}
-        callbackNode={fall}
-        initialSnap={1}
-        enabledGestureInteraction={true}
-      />
     </View>
   );
 };
@@ -104,5 +92,21 @@ const styles = StyleSheet.create({
     fontSize: 36,
     lineHeight: 40,
     color: "#7F3DFF",
+  },
+  btnWrapper: {
+    marginTop: 20,
+    alignItems: "center",
+    marginBottom: 35,
+  },
+  continue: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  accountsList: {
+    marginTop: 10,
+    paddingHorizontal: 10,
+    width: "90%",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
 });
