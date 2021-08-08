@@ -6,9 +6,30 @@ import { AccountType } from "../../Components/AccountType/AccountType";
 import { PrimaryBtn } from "../../Components/Buttons/PrimaryBtn";
 import { SecondaryBtn } from "../../Components/Buttons/SecondaryBtn";
 export const Addaccount = () => {
-  const [isSelected, setIsSelected] = useState(false);
-
+  const [isbank, setIsBank] = useState(false);
+  const [isPaypal, setIsPaypal] = useState(false);
+  const [isWallet, setIsWallet] = useState(false);
+  const [walletType, setIsWalletType] = useState("");
   const [walletName, setWalletName] = useState("");
+
+  const bankHandler = () => {
+    setIsWallet(false);
+    setIsPaypal(false);
+    setIsBank(!isbank);
+    setIsWalletType("Bank");
+  };
+  const paypalHandler = () => {
+    setIsWallet(false);
+    setIsPaypal(!isPaypal);
+    setIsBank(false);
+    setIsWalletType("Paypal");
+  };
+  const walletHandler = () => {
+    setIsWallet(!isWallet);
+    setIsPaypal(false);
+    setIsBank(false);
+    setIsWalletType("Wallet");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -27,16 +48,38 @@ export const Addaccount = () => {
             onChangeText={(text) => setWalletName(text)}
           />
           <View style={styles.btnWrapper}>
-            <SecondaryBtn title="Account Type" />
+            <SecondaryBtn title={walletType || "Account Type"} />
             <View style={styles.accountsList}>
               <AccountType
-                isSelected={isSelected}
-                onPress={() => setIsSelected(!isSelected)}
+                AntDesign={true}
+                name="bank"
+                bank={isbank}
+                onPress={() => bankHandler()}
+                style={styles.type}
+              />
+              <AccountType
+                FontAwesome={true}
+                style={styles.type}
+                name="paypal"
+                paypal={isPaypal}
+                onPress={() => paypalHandler()}
+              />
+              <AccountType
+                AntDesign={true}
+                style={styles.type}
+                name="wallet"
+                wallet={isWallet}
+                onPress={() => walletHandler()}
               />
             </View>
+
+            <Text style={styles.moreWalletText}>More wallets Soon !</Text>
           </View>
           <View style={styles.continue}>
-            <PrimaryBtn title="Continue" />
+            <PrimaryBtn
+              title={"Continue"}
+              disabled={walletName === "" ? true : false}
+            />
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -96,17 +139,20 @@ const styles = StyleSheet.create({
   btnWrapper: {
     marginTop: 20,
     alignItems: "center",
-    marginBottom: 35,
+    marginBottom: 15,
   },
   continue: {
     marginTop: 20,
     alignItems: "center",
   },
   accountsList: {
+    flexDirection: "row",
     marginTop: 10,
     paddingHorizontal: 10,
-    width: "90%",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  moreWalletText: {
+    color: "#212325",
+    fontSize: 15,
   },
 });

@@ -7,6 +7,7 @@ export const PrimaryBtn = ({ title, ...props }) => {
       style={styles.primaryBtn}
       onPress={props.onPress}
       activeOpacity={0.7}
+      disabled={props.disabled}
     >
       <Text style={styles.btnText}>{title}</Text>
     </TouchableOpacity>
